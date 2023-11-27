@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+\/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
@@ -6,36 +6,38 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:43 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/23 17:24:51 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/27 14:56:40 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-ft_read_and_copy(t_list **head, int fd, int *read_len)
+void	ft_read_and_copy(int fd, char *line)
 {
 	char	*buffer;
+	int		read_len;
+	int		index;
 
-	buffer = malloc(BUFFER_SIZE * sizeof(char));
-	if (buffer == NULL)
-		return;
-	
-	*read_len = read(fd, buffer, BUFFER_SIZE);
-	buffer[*read_len] = '\0';
-	
-	
+	read_len = 1
+	while(read_len > 0)
+	{
+		read_len = read(fd, buffer, BUFFER_SIZE);
+		if(read_len == -1)
+			return;
+		
+	}
+	buffer[read_len] = '\0';
+	return (line);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static t_list	*head;
-	char			*line;
-	int				read_len;
-	head = NULL;
-    if (fd < 0 || BUFFER_SIZE <= 0)
-		return(NULL);
-	ft_read_and_copy(&head, fd, &read_len); // read mon fichier et stocker le buffer dans ma liste
-	// extraire la ligne de ma liste vers line 
-	// vider la liste et recommencer
-	
+	static char	*buffer;
+	char		*line;
+
+	if (fd <= 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = ft_read_and_copy(fd, buffer);
+	if (buffer == NULL)
+		return (NULL);
 }

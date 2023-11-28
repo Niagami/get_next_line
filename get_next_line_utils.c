@@ -6,55 +6,70 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:41 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/27 11:43:31 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/28 13:55:59 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*ft_lstnew(char *str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_list	*newlist;
+	int		i;
+	int		j;
+	int		len;
+	char	*str;	
 
-	newlist = malloc(sizeof(t_list));
-	if (newlist == NULL)
-		return (NULL);
-	newlist->str = str;
-	newlist->next = NULL;
-	return (newlist);
+	i = 0;
+	j = 0;
+	len = (ft_strlen((char *)s1) + ft_strlen((char *)s2)) + 1;
+	str = (char *)malloc(sizeof(char) * len);
+	if (!str)
+		return (0);
+	if (s1 != NULL)
+	{
+		while (s1[i] != '\0')
+		{
+			str[j++] = s1[i++];
+		}
+		i = 0;
+	}
+	while (s2[i] != '\0')
+	{
+		str[j++] = s2[i++];
+	}
+	str[j] = '\0';
+	return (str);
 }
 
-void	ft_lstadd_back(t_list **head, t_list *new)
+char	*ft_strchr(const char *str, int tofind)
 {
-	t_list	*temp;
+	int	i;
 
-	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
+	i = 0;
+	if (str == NULL)
+		return ((char *) NULL);
+	while (str[i] != '\0' && str[i] != (char)tofind)
 	{
-		*lst = new;
-		return ;
+		i++;
 	}
-	temp = *lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
+	if (str[i] == (char)tofind)
+	{
+		return ((char *)&str[i]);
+	}
+	else
+		return ((char *) NULL);
 }
 
-void	ft_lstclear(t_list **head)
+size_t	ft_strlen(const char *str)
 {
-	t_list	*temp;
-	t_list	*next;
+	int	i;
 
-	if (lst == NULL)
-		return ;
-	temp = *lst;
-	while (temp != NULL)
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\0')
 	{
-		next = temp->next;
-		free(temp->str);
-		free(temp);
-		temp = next;
+		i++;
 	}
-	*lst = NULL;
+	return (i);
 }

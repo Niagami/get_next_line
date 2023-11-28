@@ -6,13 +6,12 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:39:16 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/23 16:42:38 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/28 13:36:12 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "get_next_line.h"
-
 
 int	main(void)
 {
@@ -28,5 +27,6 @@ int	main(void)
 			break ;
 		free(line);
 	}
+	close(fd);
 	return (0);
 }

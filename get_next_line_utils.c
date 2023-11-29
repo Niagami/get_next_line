@@ -6,39 +6,38 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:41 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/29 12:30:13 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/29 14:16:10 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *str1, char *str2)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	*str;	
+	size_t		i;
+	size_t		j;
+	char		*out;
 
+	if (!str1)
+	{
+		str1 = (char *)malloc(sizeof(char) * 1);
+		str1[0] = '\0';
+	}
+	if (!str2)
+		return (NULL);
+	out = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
+	if (out == NULL)
+		return (NULL);
 	i = 0;
 	j = 0;
-	len = (ft_strlen((char *)s1) + ft_strlen((char *)s2)) + 1;
-	str = (char *)malloc(sizeof(char) * len);
-	if (!str)
-		return (0);
-	if (s1 != NULL)
-	{
-		while (s1[i] != '\0')
-		{
-			str[j++] = s1[i++];
-		}
-		i = 0;
-	}
-	while (s2[i] != '\0')
-	{
-		str[j++] = s2[i++];
-	}
-	str[j] = '\0';
-	return (str);
+	while (str1[i])
+		out[j++] = str1[i++];
+	i = 0;
+	while (str2[i])
+		out[j++] = str2[i++];
+	out[j] = '\0';
+	free(str1);
+	return (out);
 }
 
 char	*ft_strchr(const char *str, int tofind)
@@ -47,7 +46,7 @@ char	*ft_strchr(const char *str, int tofind)
 
 	i = 0;
 	if (str == NULL)
-		return ((char *) NULL);
+		return (0);
 	while (str[i] != '\0' && str[i] != (char)tofind)
 	{
 		i++;
@@ -72,21 +71,6 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-	size_t	len;
-
-	len = count * size;
-	if (size && (len / size != count))
-		return (NULL);
-	ptr = malloc(count * size);
-	if (ptr == NULL)
-		return (0);
-	ft_bzero(ptr, count * size);
-	return (ptr);
 }
 
 void	ft_bzero(void *s, size_t n)

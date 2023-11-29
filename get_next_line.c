@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:43 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/29 12:35:20 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/29 14:39:09 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_clear_stock(char *stock)
 		free(stock);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(stock) - i + 1));
+	str = malloc(sizeof(char) * (ft_strlen(stock) - i + 1));
 	if (str == NULL)
 		return (NULL);
 	i++;
@@ -34,6 +34,7 @@ char	*ft_clear_stock(char *stock)
 	while (stock[i] != '\0')
 		str[j++] = stock[i++];
 	str[j] = '\0';
+	free(stock);
 	return (str);
 }
 
@@ -43,10 +44,12 @@ char	*ft_get_line(char *stock)
 	char	*str;
 
 	index = 0;
+	if (stock[index] == 0)
+		return (NULL);
 	while (stock[index] != '\0' && stock[index] != '\n')
 		index++;
 	str = malloc((index + 2) * sizeof(char));
-	if (str == NULL)
+	if (!str)
 		return (NULL);
 	index = 0;
 	while (stock[index] != '\0' && stock[index] != '\n')
@@ -56,7 +59,7 @@ char	*ft_get_line(char *stock)
 	}
 	if (stock[index] == '\n')
 	{
-		str[index] = stock[index];
+		str[index] = '\n';
 		index++;
 	}
 	str[index] = '\0';
@@ -65,37 +68,33 @@ char	*ft_get_line(char *stock)
 
 char	*ft_read_and_copy(int fd, char *str)
 {
-	char	*buffer;
+	char	buffer[BUFFER_SIZE + 1];
 	int		read_size;
 
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (buffer == NULL)
-		return (NULL);
 	read_size = 1;
-	while (!(ft_strchr(str, '\n')) && read_size != 0)
+	while (!(ft_strchr(str, '\n')) && read_size > 0)
 	{
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size == -1)
 		{
-			free(buffer);
+			ft_bzero(buffer, BUFFER_SIZE);
 			return (NULL);
 		}
 		buffer[read_size] = '\0';
 		str = ft_strjoin(str, buffer);
 	}
-	free(buffer);
 	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stock;
+	static char	*stock = NULL;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (0);
+		return (NULL);
 	stock = ft_read_and_copy(fd, stock);
-	if (stock == NULL)
+	if (!stock)
 		return (NULL);
 	line = ft_get_line(stock);
 	stock = ft_clear_stock(stock);

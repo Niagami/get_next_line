@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:41 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/28 13:55:59 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:30:13 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,31 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+	size_t	len;
+
+	len = count * size;
+	if (size && (len / size != count))
+		return (NULL);
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (0);
+	ft_bzero(ptr, count * size);
+	return (ptr);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = '\0';
+		i++;
+	}
 }

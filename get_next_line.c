@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: niagami <niagami@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:43 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/29 14:39:09 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:39:44 by niagami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 char	*ft_clear_stock(char *stock)
 {
+	char	*str;
 	int		i;
 	int		j;
-	char	*str;
 
 	i = 0;
+	j = 0;
 	while (stock[i] != '\0' && stock[i] != '\n')
 		i++;
 	if (!stock[i])
@@ -30,13 +31,17 @@ char	*ft_clear_stock(char *stock)
 	if (str == NULL)
 		return (NULL);
 	i++;
-	j = 0;
 	while (stock[i] != '\0')
 		str[j++] = stock[i++];
 	str[j] = '\0';
 	free(stock);
 	return (str);
 }
+/*This function calculate the size of the line,
+malloc it and copy the stock into the malloc
+string until a '\0' or a '\n' is found
+then add a '\n' if there is one in
+stock*/
 
 char	*ft_get_line(char *stock)
 {
@@ -44,7 +49,7 @@ char	*ft_get_line(char *stock)
 	char	*str;
 
 	index = 0;
-	if (stock[index] == 0)
+	if (stock[index] == '\0')
 		return (NULL);
 	while (stock[index] != '\0' && stock[index] != '\n')
 		index++;
@@ -65,25 +70,28 @@ char	*ft_get_line(char *stock)
 	str[index] = '\0';
 	return (str);
 }
+/*This function read from the file descriptor 
+and concatenate the buffer from read 
+at the end of the stock until a '\n' is found 
+in stock or until read returns zero*/
 
-char	*ft_read_and_copy(int fd, char *str)
+char	*ft_read_and_copy(int fd, char *stock)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	int		read_size;
 
 	read_size = 1;
-	while (!(ft_strchr(str, '\n')) && read_size > 0)
+	while (!(ft_strchr(stock, '\n')) && read_size > 0)
 	{
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size == -1)
 		{
-			ft_bzero(buffer, BUFFER_SIZE);
 			return (NULL);
 		}
 		buffer[read_size] = '\0';
-		str = ft_strjoin(str, buffer);
+		stock = ft_strjoin(stock, buffer);
 	}
-	return (str);
+	return (stock);
 }
 
 char	*get_next_line(int fd)
@@ -91,7 +99,7 @@ char	*get_next_line(int fd)
 	static char	*stock = NULL;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stock = ft_read_and_copy(fd, stock);
 	if (!stock)

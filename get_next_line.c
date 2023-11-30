@@ -6,12 +6,15 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:43 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/30 12:41:45 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 14:54:37 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
+/*This function brows the stock until a '\n'
+or a '\0' is found and copy the remaining
+portion of stock in a new string wich become
+the new stock*/
 char	*ft_clear_stock(char *stock)
 {
 	char	*str;
@@ -82,12 +85,9 @@ char	*ft_read_and_copy(int fd, char *stock)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buffer == NULL)
-	{
-		free(buffer);
 		return (NULL);
-	}
 	read_size = 1;
-	while (!(ft_strchr(stock, '\n')) && read_size > 0)
+	while (!(ft_strchr(stock, '\n')) && read_size != 0)
 	{
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size == -1)
@@ -102,7 +102,6 @@ char	*ft_read_and_copy(int fd, char *stock)
 	free(buffer);
 	return (stock);
 }
-
 char	*get_next_line(int fd)
 {
 	static char	*stock = NULL;

@@ -6,11 +6,11 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:33 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/30 12:41:39 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 14:40:28 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_clear_stock(char *stock)
 {
@@ -82,10 +82,7 @@ char	*ft_read_and_copy(int fd, char *stock)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buffer == NULL)
-	{
-		free(buffer);
 		return (NULL);
-	}
 	read_size = 1;
 	while (!(ft_strchr(stock, '\n')) && read_size > 0)
 	{

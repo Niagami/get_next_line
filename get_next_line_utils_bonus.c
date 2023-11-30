@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:38 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/30 12:41:43 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:08:26 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*ft_strchr(const char *str, int tofind)
 	else
 		return ((char *) NULL);
 }
+/*This function calculate the lenght of a string*/
 
 size_t	ft_strlen(const char *str)
 {
@@ -71,16 +72,4 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((char *)s)[i] = '\0';
-		i++;
-	}
 }

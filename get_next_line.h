@@ -6,7 +6,7 @@
 /*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:45 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/29 14:16:22 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 13:08:08 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ char	*ft_clear_stock(char *stock);
 char	*ft_strchr(const char *str, int tofind);
 char	*ft_strjoin(char *str1, char *str2);
 size_t	ft_strlen(const char *str);
-void	ft_bzero(void *s, size_t n);
 
 #endif

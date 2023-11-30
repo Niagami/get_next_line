@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niagami <niagami@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:43 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/29 20:39:44 by niagami          ###   ########.fr       */
+/*   Updated: 2023/11/30 11:11:52 by jteste           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,29 @@ in stock or until read returns zero*/
 
 char	*ft_read_and_copy(int fd, char *stock)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	*buffer;
 	int		read_size;
 
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (buffer == NULL)
+	{
+		free(buffer);
+		return (NULL);
+	}
 	read_size = 1;
 	while (!(ft_strchr(stock, '\n')) && read_size > 0)
 	{
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size == -1)
-		{
+		{	
+			free(buffer);
+			free(stock);
 			return (NULL);
 		}
 		buffer[read_size] = '\0';
 		stock = ft_strjoin(stock, buffer);
 	}
+	free(buffer);
 	return (stock);
 }
 

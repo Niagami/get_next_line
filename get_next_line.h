@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: niagami <niagami@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:45 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/30 13:08:08 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 20:47:49 by niagami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_get_line(char *stock);
 char	*ft_read_and_copy(int fd, char *str);
 char	*ft_clear_stock(char *stock);
 char	*ft_strchr(const char *str, int tofind);
-char	*ft_strjoin(char *str1, char *str2);
+char	*ft_strjoin(char *stock, char *buffer);
 size_t	ft_strlen(const char *str);
 
 #endif

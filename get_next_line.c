@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: niagami <niagami@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:51:43 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/30 14:54:37 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 20:47:48 by niagami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_read_and_copy(int fd, char *stock)
 	{
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size == -1)
-		{	
+		{
 			free(buffer);
 			free(stock);
 			return (NULL);
@@ -102,6 +102,7 @@ char	*ft_read_and_copy(int fd, char *stock)
 	free(buffer);
 	return (stock);
 }
+
 char	*get_next_line(int fd)
 {
 	static char	*stock = NULL;

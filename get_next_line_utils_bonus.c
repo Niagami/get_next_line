@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jteste <jteste@student.42.fr>              +#+  +:+       +#+        */
+/*   By: niagami <niagami@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:37:38 by jteste            #+#    #+#             */
-/*   Updated: 2023/11/30 13:08:26 by jteste           ###   ########.fr       */
+/*   Updated: 2023/11/30 20:47:45 by niagami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*ft_strjoin(char *str1, char *str2)
+char	*ft_strjoin(char *stock, char *buffer)
 {
 	size_t		i;
 	size_t		j;
 	char		*out;
 
-	if (!str1)
+	if (!stock)
 	{
-		str1 = (char *)malloc(sizeof(char) * 1);
-		str1[0] = '\0';
+		stock = malloc(sizeof(char) * 1);
+		stock[0] = '\0';
 	}
-	if (!str2)
+	if (!buffer)
 		return (NULL);
-	out = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
+	out = malloc((ft_strlen(stock) + ft_strlen(buffer) + 1) * sizeof(char));
 	if (out == NULL)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (str1[i])
-		out[j++] = str1[i++];
+	while (stock[i] != '\0')
+		out[j++] = stock[i++];
+	free(stock);
 	i = 0;
-	while (str2[i])
-		out[j++] = str2[i++];
+	while (buffer[i] != '\0')
+		out[j++] = buffer[i++];
 	out[j] = '\0';
-	free(str1);
 	return (out);
 }
 
